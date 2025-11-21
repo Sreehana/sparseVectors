@@ -1,0 +1,17 @@
+Package: sparseVectors
+Title: Sparse numeric vectors
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+Description: This package represents numeric vectors in a sparse format.It stores only their non zero values and their positions, saving memory. This package implements a set of operations that optimize for sparsity. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends: R (>= 4.0.0)
+Imports: methods
+Suggests: 
+    testthat (>= 3.0.0),
+    covr,
+    pkgdown
+Config/testthat/edition: 3

@@ -1,0 +1,104 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# sparseVectors
+
+The **sparseVectors** package implements an S4 class called
+\`sparse_numeric’. This stores numeric vectors through keeping only the
+non zero values and positions, making it more efficient.
+
+## Features
+
+The package supports:
+
+### Core class
+
+- `sparse_numeric` — an S4 class with slots:
+  - `value`: non-zero numeric values  
+  - `pos`: positions of those values  
+  - `length`: total length of the vector
+
+### Arithmetic + math operations
+
+- `sparse_add()` — elementwise addition  
+- `sparse_sub()` — elementwise subtraction  
+- `sparse_mult()` — elementwise multiplication  
+- `sparse_crossprod()` — dot product  
+- S4 overloads for `+`, `-`, `*`
+
+### Statistics & transformations
+
+- `mean()` method for sparse vectors (includes zeros)  
+- `norm()` — Euclidean (L2) norm  
+- `standardize()` — subtract mean and divide by standard deviation
+
+### Coercion
+
+- `as(numeric, "sparse_numeric")`  
+- `as(sparse_numeric, "numeric")`
+
+### Display
+
+- Custom `show()` method  
+- Custom `plot()` method for comparing two sparse vectors
+
+## Installation
+
+You can install the development version of sparseVectors from GitHub
+with:
+
+``` r
+# install.packages("pak")
+pak::pak("Sreehana/sparseVectors")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(sparseVectors)
+#> 
+#> Attaching package: 'sparseVectors'
+#> The following object is masked from 'package:base':
+#> 
+#>     norm
+# Create a sparse_numeric vector
+x <- as(c(1, 0, 2, 0), "sparse_numeric")
+x
+#> Sparse numeric vector of length 4 
+#> Non-zero values:
+#>  pos value
+#>    1     1
+#>    3     2
+#> Sparse numeric vector of length 4
+#> Non-zero values:
+#>  pos value
+#>    1     1
+#>    3     2
+
+# Compute the mean (including zeros)
+mean(x)
+#> [1] 0.75
+#> 0.75
+
+# Compute the Euclidean norm
+norm(x)
+#> [1] 2.236068
+#> sqrt(1^2 + 2^2) = 2.236
+
+# Standardize the vector
+standardize(x)
+#> Sparse numeric vector of length 4 
+#> Non-zero values:
+#>  pos      value
+#>    1  0.2611165
+#>    2 -0.7833495
+#>    3  1.3055824
+#>    4 -0.7833495
+
+# Convert back to dense
+as(x, "numeric")
+#> [1] 1 0 2 0
+#> 1 0 2 0
+```
